@@ -31,81 +31,45 @@
   </ion-content>
 </ion-menu>
 <ion-router-outlet id="main"></ion-router-outlet>
+
+
 <ion-content>
-  <ion-card>
-    <ion-card-content>
-      <ion-subtitle>Tareas de hoy</ion-subtitle>
-    </ion-card-content>
-  </ion-card>
+  <h1>Listado de Elementos</h1>
+  <ion-searchbar (ionInput)="getItem($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of notas">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/icon/favicon.png">
+        </ion-avatar>
 
-  <ion-card>
-  <swiper #swiper [config]="config">
-    <ng-template swiperSlide>
-      <ion-card>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13328.752699868342!2d-70.68704181167791!3d-33.36615299427251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c7c1ba017f13%3A0xeb5ac418f75ed2d6!2sMallplaza%20Norte!5e0!3m2!1ses-419!2scl!4v1661981305356!5m2!1ses-419!2scl"
-        width="200px" height="200px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <ion-card-header>
-          <ion-card-subtitle>Mall Plaza Norte Falabella</ion-card-subtitle>
-          <ion-card-title>Renuion con Prioridad</ion-card-title>
-        </ion-card-header>
-      
-        <ion-card-content>
-          Reunión con Product Owner Proyecto Alive
-        </ion-card-content>
-      </ion-card>
-    </ng-template>
+        <ion-label>
+          <h2>{{ item.titulo }}</h2>
+          <!-- word-wrap para los cortes entre palabras  white-space para que aparezca todo el texto en varias lineas y no se corte-->
+          <p style="word-wrap: break-word; white-space: normal;">{{ item.texto }}</p>
+        </ion-label>
 
-    <ng-template swiperSlide>
-      <ion-card>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3331.239743502363!2d-70.54834348498208!3d-33.390908980790925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662ceb4663d0783%3A0x689ed61fe12327c4!2sIntegraM%C3%A9dica%20Alto%20las%20Condes!5e0!3m2!1ses-419!2scl!4v1661982234681!5m2!1ses-419!2scl" 
-        width="250px" height="250px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <ion-card-header>
-          <ion-card-subtitle>Integramedica Las Condes</ion-card-subtitle>
-          <ion-card-title>Planificamiento</ion-card-title>
-        </ion-card-header>
-      
-        <ion-card-content>
-          Reunión de integracion plan de proyecto Caso Fillz
-        </ion-card-content>
-      </ion-card>
-    </ng-template>
+      </ion-item>
+      <!-- El error era que el evento click se lo puse al icono y no al boton completo -->
+      <ion-item-options side="end">
+        <ion-item-option (click)="editar(item)">
+          <ion-icon name="create" ></ion-icon> Editar
+        </ion-item-option>
 
-    <ng-template swiperSlide>
-      <ion-card>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.1246678305038!2d-70.60779788498141!3d-33.419993980782614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf69090a4091%3A0x6e06017c15466a61!2sAv.%20Providencia%202411%2C%20Providencia%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1661982415186!5m2!1ses-419!2scl" 
-        width="250px" height="250px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <ion-card-header>
-          <ion-card-subtitle>Providencia 2411</ion-card-subtitle>
-          <ion-card-title>Reunión con Developers</ion-card-title>
-        </ion-card-header>
-      
-        <ion-card-content>
-          Reunión de gestión para proyecto Pichilemu
-        </ion-card-content>
-      </ion-card>
-    </ng-template>
+        <ion-item-option color="danger" (click)="eliminar(item)">
+          <ion-icon name="trash"></ion-icon> Eliminar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
 
-    <ng-template swiperSlide>
-      <ion-card>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13315.519292489598!2d-70.57820371163896!3d-33.452437393877936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662ce4a396cff93%3A0x3da8a6f37f2ba003!2sMall%20Plaza%20Ega%C3%B1a!5e0!3m2!1ses-419!2scl!4v1661982625325!5m2!1ses-419!2scl" 
-        width="250px" height="250px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <ion-card-header> 
-          <ion-card-subtitle>Mall Plaza Egaña</ion-card-subtitle>
-          <ion-card-title>Reunión inicial</ion-card-title>
-        </ion-card-header>
-      
-        <ion-card-content>
-          Reunión de gestión para proyecto Pichilemu
-        </ion-card-content>
-      </ion-card>
-    </ng-template>
-  </swiper>
-  </ion-card>
-  <ion-content scroll="false" class="has-header" align="center">
-    <p>Cargando
-      <ion-spinner icon="ios"></ion-spinner>
-    </p>
-  </ion-content>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/agregar']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+
 
 

@@ -1,6 +1,8 @@
-import { AfterContentChecked, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit,} from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Geolocation, Geoposition } from '@awesome-cordova-plugins/geolocation/ngx';
+import { DbserviceService } from '../services/dbservice.service';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +13,53 @@ export class HomePage implements OnInit{
   
   darkMode: boolean = false;
 
-  constructor(private menu: MenuController, private menuCtrl: MenuController, private geolocation: Geolocation) {}
-  
-  ngOnInit() {
+  notas: any = [
+    {
+      titulo: "Titulo de la Nota",
+      texto: "Texto de la nota que quiero que salga en el cuerpo del item"
+    }
+  ]
+
+  constructor(private router: Router, private menu: MenuController, private menuCtrl: MenuController, private geolocation: Geolocation, private servicioBD: DbserviceService) {}
+
+  ngOnInit(){
+    //this.servicioBD.presentAlert("1");
+    this.servicioBD.dbState().subscribe((res) =>{
+      //this.servicioBD.presentAlert("2");
+      if(res){
+        //this.servicioBD.presentAlert("3");
+        this.servicioBD.fetchNotas().subscribe(item =>{
+          this.notas = item;
+        })
+      }
+      //this.servicioBD.presentAlert("4");
+    });
+  }
+
+  getItem($event) {
+    const valor = $event.target.value; 
+    console.log('valor del control: ' + valor);
+  }
+
+  agregar() {
+  }
+
+  editar(item) {
+    this.servicioBD.presentToast("Hola");
+    let navigationextras: NavigationExtras = {
+      state : {
+        idEnviado : item.id,
+        tituloEnviado : item.titulo,
+        textoEnviado : item.texto
+      }
+    }
+    this.servicioBD.presentToast("Aqui");
+    this.router.navigate(['/modificar'],navigationextras);
+  }
+
+  eliminar(item) {
+    this.servicioBD.deleteNota(item.id);
+    this.servicioBD.presentToast("Nota Eliminada");
   }
 
   ngAfterViewInit(){

@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'calendar',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -32,10 +32,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/e404/e404.module').then( m => m.E404PageModule)
   },
   {
+    path: 'agregar',
+    loadChildren: () => import('./pages/agregar/agregar.module').then( m => m.AgregarPageModule)
+  },
+  {
+    path: 'modificar',
+    loadChildren: () => import('./pages/modificar/modificar.module').then( m => m.ModificarPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'e404',
     pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({

@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
         user: this.user 
       }
     };
-    this.router.navigate(['/profile'],navigationExtras);
+    this.router.navigate(['/home'],navigationExtras);
   }
 
 }
