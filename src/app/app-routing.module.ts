@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'calendar',
     pathMatch: 'full'
   },
   {
@@ -31,6 +31,11 @@ const routes: Routes = [
     path: 'e404',
     loadChildren: () => import('./pages/e404/e404.module').then( m => m.E404PageModule)
   },
+  {
+    path: '**',
+    redirectTo: 'e404',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
