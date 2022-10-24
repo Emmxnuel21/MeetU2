@@ -43,7 +43,8 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'e404',
     pathMatch: 'full'
-  },
+  }
+
 ];
 
 @NgModule({

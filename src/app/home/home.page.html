@@ -17,7 +17,7 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item><ion-buttons><ion-button class="color-btn" routerLink="/profile"><ion-icon name="person-outline"></ion-icon><p>&nbsp;Perfil</p></ion-button></ion-buttons></ion-item>
+      <ion-item><ion-buttons><ion-button class="color-btn"><ion-icon name="person-outline"></ion-icon><p>&nbsp;Perfil</p></ion-button></ion-buttons></ion-item>
       <ion-item><ion-buttons><ion-button class="color-btn" routerLink="/chat"><ion-icon name="mail-open-outline"></ion-icon><p>&nbsp;Mensajeria</p></ion-button></ion-buttons></ion-item>        
       <ion-item><ion-buttons><ion-button class="color-btn" routerLink="/calendar"><ion-icon name="calendar-outline"></ion-icon><p>&nbsp;Agenda</p></ion-button></ion-buttons></ion-item>
       <ion-item><ion-buttons><ion-button class="color-btn" routerLink="#"><ion-icon name="settings-outline"></ion-icon><p>&nbsp;Configuración</p></ion-button></ion-buttons></ion-item>
@@ -31,10 +31,17 @@
   </ion-content>
 </ion-menu>
 <ion-router-outlet id="main"></ion-router-outlet>
+<ion-div>
+  <ion-segment value="Contactos" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="Contactos" class="color-btn"><ion-icon name="accessibility-outline">
+    </ion-icon><p>&nbsp;Contactos</p></ion-segment-button>
 
-
+    <ion-segment-button value="Reuniones" class="color-btn"><ion-icon name="alert-outline">
+    </ion-icon><p>&nbsp;Reuniones</p></ion-segment-button>
+  </ion-segment>
+</ion-div>
 <ion-content>
-  <h1>Listado de Elementos</h1>
+  <h1>Notas rapidas</h1>
   <ion-searchbar (ionInput)="getItem($event)"></ion-searchbar>
   <ion-list>
     <ion-item-sliding *ngFor="let item of notas">

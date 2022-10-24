@@ -1,4 +1,4 @@
-import {Component, OnInit,} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Geolocation, Geoposition } from '@awesome-cordova-plugins/geolocation/ngx';
 import { DbserviceService } from '../services/dbservice.service';
@@ -21,6 +21,12 @@ export class HomePage implements OnInit{
   ]
 
   constructor(private router: Router, private menu: MenuController, private menuCtrl: MenuController, private geolocation: Geolocation, private servicioBD: DbserviceService) {}
+  //@param $event
+  segmentChanged($event){
+    console.log($event.detail.value);
+    let direction=$event.detail.value
+    this.router.navigate(['home/'+direction])
+  }
 
   ngOnInit(){
     //this.servicioBD.presentAlert("1");
@@ -94,5 +100,6 @@ cambio(){
   this.darkMode = this.darkMode
   document.body.classList.toggle('dark');
   }
+  
 
 }
