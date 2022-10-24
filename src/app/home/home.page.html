@@ -1,20 +1,82 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button class="color-btn" (click)="toggleMenu()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu side="start" menuId="custom" contentId="main" class="my-custom-menu">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title align="center">MeetU</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item><ion-buttons><ion-button class="color-btn"><ion-icon name="person-outline"></ion-icon><p>&nbsp;Perfil</p></ion-button></ion-buttons></ion-item>
+      <ion-item><ion-buttons><ion-button class="color-btn" routerLink="/chat"><ion-icon name="mail-open-outline"></ion-icon><p>&nbsp;Mensajeria</p></ion-button></ion-buttons></ion-item>        
+      <ion-item><ion-buttons><ion-button class="color-btn" routerLink="/calendar"><ion-icon name="calendar-outline"></ion-icon><p>&nbsp;Agenda</p></ion-button></ion-buttons></ion-item>
+      <ion-item><ion-buttons><ion-button class="color-btn" routerLink="#"><ion-icon name="settings-outline"></ion-icon><p>&nbsp;Configuración</p></ion-button></ion-buttons></ion-item>
+      <ion-item><ion-buttons><ion-button class="color-btn" routerLink="/login"><ion-icon name="exit-outline"></ion-icon><p>&nbsp;Cerrar sesión</p></ion-button></ion-buttons></ion-item>
+      <ion-item>
+        <ion-icon slot="start" name="moon"></ion-icon>
+        <ion-label>Modo Oscuro</ion-label>
+        <ion-toggle slot="end"[ngModel]="darkMode" (ionChange)="cambio()"></ion-toggle>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-router-outlet id="main"></ion-router-outlet>
+<ion-div>
+  <ion-segment value="Contactos" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="Contactos" class="color-btn"><ion-icon name="accessibility-outline">
+    </ion-icon><p>&nbsp;Contactos</p></ion-segment-button>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <ion-segment-button value="Reuniones" class="color-btn"><ion-icon name="alert-outline">
+    </ion-icon><p>&nbsp;Reuniones</p></ion-segment-button>
+  </ion-segment>
+</ion-div>
+<ion-content>
+  <h1>Notas rapidas</h1>
+  <ion-searchbar (ionInput)="getItem($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of notas">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="assets/icon/favicon.png">
+        </ion-avatar>
+
+        <ion-label>
+          <h2>{{ item.titulo }}</h2>
+          <!-- word-wrap para los cortes entre palabras  white-space para que aparezca todo el texto en varias lineas y no se corte-->
+          <p style="word-wrap: break-word; white-space: normal;">{{ item.texto }}</p>
+        </ion-label>
+
+      </ion-item>
+      <!-- El error era que el evento click se lo puse al icono y no al boton completo -->
+      <ion-item-options side="end">
+        <ion-item-option (click)="editar(item)">
+          <ion-icon name="create" ></ion-icon> Editar
+        </ion-item-option>
+
+        <ion-item-option color="danger" (click)="eliminar(item)">
+          <ion-icon name="trash"></ion-icon> Eliminar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/agregar']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+
+
+
