@@ -17,18 +17,18 @@
       <ion-list lines="none" class="form fade-in">
         <ion-item>
           <ion-label>Usuario</ion-label>
-          <ion-input class="ion-text-right" [(ngModel)]="user.usuario"></ion-input>
+          <ion-input class="ion-text-right" [(ngModel)]="nombre"></ion-input>
           <ion-icon slot="end" name="person"></ion-icon>
         </ion-item>
         <ion-item>
           <ion-label>Contraseña</ion-label>
-          <ion-input type="password" class="ion-text-right" [(ngModel)]="user.password"></ion-input>
+          <ion-input type="password" class="ion-text-right" [(ngModel)]="contrasena"></ion-input>
           <ion-icon slot="end" name="key-outline"></ion-icon>
         </ion-item>
       </ion-list>
 
       <div class="ion-text-center fade-in">
-        <ion-button class="green-button" (click)="casa()">
+        <ion-button class="green-button" (click)="ingresar()">
           Ingresar
         </ion-button>
       </div>
@@ -50,7 +50,7 @@
       <ion-list lines="none" class="form" [ngClass]="{'fade-in': signupView, 'fade-out': !signupView}">
         <ion-item>
           <ion-label>Usuario</ion-label>
-          <ion-input class="ion-text-right"[(ngModel)]="user.usuario"></ion-input>
+          <ion-input class="ion-text-right"[(ngModel)]="nombre"></ion-input>
           <ion-icon slot="end" name="person"></ion-icon>
         </ion-item>
         <ion-item>
@@ -60,13 +60,13 @@
         </ion-item>
         <ion-item>
           <ion-label>Contraseña</ion-label>
-          <ion-input type="password" class="ion-text-right"[(ngModel)]="user.password"></ion-input>
+          <ion-input type="password" class="ion-text-right"[(ngModel)]="contrasena"></ion-input>
           <ion-icon slot="end" name="key-outline"></ion-icon>
         </ion-item>
       </ion-list>
       
       <div class="ion-text-center" [ngClass]="{'fade-in': signupView, 'fade-out': !signupView}">
-        <ion-button class="gray-button" (click)="casa()">
+        <ion-button class="gray-button" (click)="registro()">
           Registrar
         </ion-button>
       </div>

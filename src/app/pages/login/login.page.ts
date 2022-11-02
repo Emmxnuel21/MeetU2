@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-
+import { Usuario } from 'src/app/classes/usuario';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +11,14 @@ import { NavigationExtras, Router } from '@angular/router';
 export class LoginPage implements OnInit {
   signupView: boolean = false;
   
-  user={
-    usuario:"",
-    password:""
+  datos: {
+    nombre: "",
+    contrasena: ""
   }
-  constructor(private router: Router) { }
+    
+
+
+  constructor(private router: Router, private dbservice: DbserviceService) {}
 
   ngOnInit() {
   }
@@ -23,13 +27,37 @@ export class LoginPage implements OnInit {
     this.signupView = !this.signupView
   }
 
-  casa(){
-    let navigationExtras: NavigationExtras ={
-      state:{
-        user: this.user 
+  registro(nombre,contrasena){
+    this.dbservice.validarUsuario(nombre).then((data) => {
+      if(!data){
+        this.dbservice.addUsuario(this.datos.nombre,this.datos.contrasena);
+        this.dbservice.presentToast("Usuario Agregado");
+      }else {
+        this.dbservice.presentToast("Usuario No Agregado");
       }
-    };
-    this.router.navigate(['/profile'],navigationExtras);
+    }) 
   }
 
+  ingresar() {
+    this.dbservice.validarUsuario(this.datos.nombre).then((data) =>{
+      if(!data){
+        let navigationExtras: NavigationExtras ={
+          state:{
+            datos: this.datos 
+          }
+        };
+        this.router.navigate(['/profile'],navigationExtras);
+        
+      }else{
+        this.dbservice.presentToast("Usuario o contraseña incorrecta");
+      }
+    })
+    
+  }
+
+  
+
+  
+
+  
 }
