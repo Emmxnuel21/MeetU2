@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -13,15 +15,18 @@ const routes: Routes = [
   },
   {
     path: 'calendar',
-    loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule)
+    loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'chat',
-    loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule)
+    loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -33,11 +38,13 @@ const routes: Routes = [
   },
   {
     path: 'agregar',
-    loadChildren: () => import('./pages/agregar/agregar.module').then( m => m.AgregarPageModule)
+    loadChildren: () => import('./pages/agregar/agregar.module').then( m => m.AgregarPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'modificar',
-    loadChildren: () => import('./pages/modificar/modificar.module').then( m => m.ModificarPageModule)
+    loadChildren: () => import('./pages/modificar/modificar.module').then( m => m.ModificarPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

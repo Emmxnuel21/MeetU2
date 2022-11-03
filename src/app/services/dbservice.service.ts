@@ -183,6 +183,13 @@ export class DbserviceService {
       return true
     })
   }
+
+  //guard para autenticar usuarios
+  isAuthenticated(){
+    //insertar logica de filtro de permisos
+    alert('Has ingresado sin credenciales');
+    return true;
+  }
     
 
 }
