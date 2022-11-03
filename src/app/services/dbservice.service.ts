@@ -110,6 +110,11 @@ export class DbserviceService {
   toast.present();
   }
 
+  //guard
+  isAuthenticated(){
+    //insertar filtro
+    return true;
+  }
 
 
 }
