@@ -172,13 +172,13 @@ export class DbserviceService {
         return false;
       }
       return true;
-    });
+    })
   }
 
   iniciarSesion(nombre,contrasena){
-    return this.database.executeSql('SELECT CONCAT(nombre," ",contrasena) as NOMUSUA FROM usuario where nombre = ? and contrasena = ?',[nombre,contrasena]).then((data)=>{
-      if(data.rows.item(0).NOMUSUA === null){
-        return true;
+    return this.database.executeSql('SELECT nombre , contrasena FROM usuario WHERE nombre = ? and contrasena = ?',[nombre,contrasena]).then((data)=>{
+      if(data.rows.item(0)){
+        return false
       }
       return true
     })
