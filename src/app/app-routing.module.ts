@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-<<<<<<< HEAD
 import { DbserviceService } from './services/dbservice.service';
-=======
->>>>>>> 8f7dddc823bce4fd5ac2740a48f45b6101616487
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
