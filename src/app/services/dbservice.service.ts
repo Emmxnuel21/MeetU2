@@ -176,6 +176,7 @@ export class DbserviceService {
     })
   }
 
+<<<<<<< HEAD
   validarSesion(sesion:any){
     return this.database.executeSql('SELECT nombre FROM usuario WHERE nombre = ? and contrasena = ?',[sesion.nombre,sesion.contrasena])
   }
@@ -234,5 +235,39 @@ export class DbserviceService {
       //return false
     //}//
   }
+=======
+  iniciarSesion(nombre,contrasena){
+    return this.database.executeSql('SELECT nombre , contrasena FROM usuario WHERE nombre = ? and contrasena = ?',[nombre,contrasena]).then((data)=>{
+      if(data.rows.item(0)){
+        return false;
+      }
+      return true;
+    })
+  }
+  //funcion cuando el usuario cierre sesion
+  //cerrarSesion(nombre,contrasena){
+    //return this.database.executeSql('SELECT nombre , contrasena FROM usuario WHERE nombre = ? and contrasena = ?',[nombre,contrasena]).then((data)=>{
+      //if(data.rows.item(0)){
+        //return false
+        //this.router.navigate(['login']);
+        //alert('Has cerrado sesion');
+      //}
+    //})
+  //}
+
+  //guard para autenticar usuarios
+  isAuthenticated(){
+    //insertar logica de filtro de permisos
+    alert('Has ingresado sin credenciales');
+    return true;
+    //sii el data rows arroja 1 entonces permite el ingreso a la pagina
+    //if//(data.rows.item(1)){//
+      //return true
+      //this.router.navigate(['profile']);
+      //return false
+    //}//
+  }
+    
+>>>>>>> 8f7dddc823bce4fd5ac2740a48f45b6101616487
 
 }
