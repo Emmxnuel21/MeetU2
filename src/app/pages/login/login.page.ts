@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { Usuario } from 'src/app/classes/usuario';
 import { DbserviceService } from 'src/app/services/dbservice.service';
 import { AlertController } from '@ionic/angular';
 @Component({
@@ -11,19 +10,18 @@ import { AlertController } from '@ionic/angular';
 export class LoginPage implements OnInit {
   signupView: boolean = false;
   
-  datos:{
-    nombre: "",
-    contrasena: ""
+  login:any={
+    Usuario: "",
+    Password: ""
   }
+  field: string;
     
   constructor(private router: Router, private dbservice: DbserviceService, private alertcontroller: AlertController) {}
 
   ngOnInit() {
   }
 
-  toggleSignUpView () {
-    this.signupView = !this.signupView
-  }
+
 
   async mostrarFormulario() {
     const alert = await this.alertcontroller.create({
@@ -74,22 +72,32 @@ export class LoginPage implements OnInit {
     }) 
   }
 
-  ingresar(nombre,contrasena){
-    this.dbservice.iniciarSesion(nombre,contrasena).then((data) =>{
-      if(!data){
-        this.dbservice.presentToast("Usuario o contraseña incorrecta");
-      }else{
-        let navigationExtras: NavigationExtras ={
-          state:{
-            datos: this.datos 
-          }
-        };
-        this.router.navigate(['/profile'],navigationExtras);
-      }
-    })
-    
+  ingresar(){
+    // Se valida que el usuario ingreso todos los datos
+    if(this.validateModel(this.login)){
+      // Se obtiene si existe alguna data de sesión
+      this.dbservice.login(this.login);
+    }
+    else{
+      this.dbservice.presentToast("Falta: "+this.field);
+    }
   }
-  
 
-  
+ validateModel(model:any){
+  // Recorro todas las entradas que me entrega Object entries y obtengo su clave, valor
+  for (var [key, value] of Object.entries(model)) {
+    // Si un valor es "" se retornara false y se avisara de lo faltante
+    if (value=="") {
+      // Se asigna el campo faltante
+      this.field=key;
+      // Se retorna false
+      return false;
+    }
+  }
+  return true;
+}
+
+  ir(){
+    this.router.navigate(['/profile']);
+  }
 }
