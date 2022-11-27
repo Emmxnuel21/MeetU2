@@ -21,7 +21,9 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-
+  toggleSignUpView () {
+    this.signupView = !this.signupView
+  }
 
   async mostrarFormulario() {
     const alert = await this.alertcontroller.create({
@@ -76,7 +78,7 @@ export class LoginPage implements OnInit {
     // Se valida que el usuario ingreso todos los datos
     if(this.validateModel(this.login)){
       // Se obtiene si existe alguna data de sesión
-      this.dbservice.login(this.login);
+
     }
     else{
       this.dbservice.presentToast("Falta: "+this.field);
