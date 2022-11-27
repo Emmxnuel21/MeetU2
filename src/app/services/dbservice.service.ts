@@ -176,18 +176,14 @@ export class DbserviceService {
     })
   }
 
-  validarSesion(sesion:any){
-    return this.database.executeSql('SELECT nombre FROM usuarios WHERE nombre = ? and contrasena = ?',[sesion.nombre,sesion.contrasena])
+  iniciarSesion(nombre,contrasena){
+    return this.database.executeSql('SELECT COUNT(id) as CANTIDAD FROM usuarios WHERE nombre = ? and contrasena = ?',[nombre,contrasena]).then((data)=>{
+      if(data.rows.item(0).CANTIDAD === 0){
+        return false;
+      }
+      return true;
+    })
   }
-  
-  updateSesionData(sesion:any){
-    return this.database.executeSql('UPDATE usuarios SET active = ? WHERE nombre = ? ', [sesion.active,sesion.nombre]);
-  } 
-
-
-
- 
-
 
 
   //funcion cuando el usuario cierre sesion
@@ -211,7 +207,7 @@ export class DbserviceService {
       //return true
       //this.router.navigate(['profile']);
       //return false
-    //}//
+      //}//
   }
 
 }
