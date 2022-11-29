@@ -48,7 +48,6 @@ export class LoginPage implements OnInit {
           this.dbservice.presentToast("Usuario No registrado");
         }else {
           if(usuario.Nombre == this.login.Nombre && usuario.Password == this.login.Password){
-            console.log('Ingresado');
             localStorage.setItem('ingresado','true');
             this.router.navigate(['/profile']);
           }else{
@@ -61,8 +60,6 @@ export class LoginPage implements OnInit {
       this.dbservice.presentToast("Falta: "+this.field);
     }
   }
-
-
 
  validateModel(model:any){
   // Recorro todas las entradas que me entrega Object entries y obtengo su clave, valor
@@ -78,7 +75,4 @@ export class LoginPage implements OnInit {
   return true;
 }
 
-  ir(){
-    this.router.navigate(['/profile']);
-  }
 }

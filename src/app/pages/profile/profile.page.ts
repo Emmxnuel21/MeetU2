@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -9,17 +11,9 @@ import { MenuController } from '@ionic/angular';
 })
 export class ProfilePage implements OnInit {
 
-  data:any;
-  darkMode: boolean = false;
+  user_ini = [];
 
-  constructor(private activeroute: ActivatedRoute, private router: Router, private menu: MenuController, private menuCtrl: MenuController) {
-  this.activeroute.queryParams.subscribe(params => {
-    if (this.router.getCurrentNavigation().extras.state){
-      this.data = this.router.getCurrentNavigation().extras.state.user;
-      console.log(this.data)
-    }
-  });
-}
+  constructor(private dbservice: DbserviceService,private activeroute: ActivatedRoute, private router: Router, private menu: MenuController, private menuCtrl: MenuController, private loading: LoadingController) {}
 
   ngOnInit() {
   }
@@ -40,10 +34,10 @@ export class ProfilePage implements OnInit {
   toggleMenu(){
     this.menuCtrl.toggle();
   }
-  cambio(){
-    //const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    this.darkMode = this.darkMode
-    document.body.classList.toggle('dark');
+
+    logout(){
+      this.dbservice.cerrarSesion()
     }
 
+    a
 }

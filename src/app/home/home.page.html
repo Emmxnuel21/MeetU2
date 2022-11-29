@@ -22,12 +22,7 @@
       <ion-item><ion-buttons><ion-button class="color-btn" routerLink="/chat"><ion-icon name="mail-open-outline"></ion-icon><p>&nbsp;Mensajeria</p></ion-button></ion-buttons></ion-item>        
       <ion-item><ion-buttons><ion-button class="color-btn" routerLink="/calendar"><ion-icon name="calendar-outline"></ion-icon><p>&nbsp;Agenda</p></ion-button></ion-buttons></ion-item>
       <ion-item><ion-buttons><ion-button class="color-btn" routerLink="#"><ion-icon name="settings-outline"></ion-icon><p>&nbsp;Configuración</p></ion-button></ion-buttons></ion-item>
-      <ion-item><ion-buttons><ion-button class="color-btn" routerLink="/login"><ion-icon name="exit-outline"></ion-icon><p>&nbsp;Cerrar sesión</p></ion-button></ion-buttons></ion-item>
-      <ion-item>
-        <ion-icon slot="start" name="moon"></ion-icon>
-        <ion-label>Modo Oscuro</ion-label>
-        <ion-toggle slot="end"[ngModel]="darkMode" (ionChange)="cambio()"></ion-toggle>
-      </ion-item>
+      <ion-item><ion-buttons><ion-button class="color-btn" (click)="logout()"><ion-icon name="exit-outline"></ion-icon><p>&nbsp;Cerrar sesión</p></ion-button></ion-buttons></ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>

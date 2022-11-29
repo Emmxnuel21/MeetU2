@@ -4,6 +4,7 @@ import { Geolocation, Geoposition } from '@awesome-cordova-plugins/geolocation/n
 import { DbserviceService } from '../services/dbservice.service';
 import { NavigationExtras, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -20,7 +21,7 @@ export class HomePage implements OnInit{
     }
   ]
 
-  constructor(private router: Router, private menu: MenuController, private menuCtrl: MenuController, private geolocation: Geolocation, private servicioBD: DbserviceService) {}
+  constructor(private dbservice:DbserviceService ,private router: Router, private menu: MenuController, private menuCtrl: MenuController, private geolocation: Geolocation, private servicioBD: DbserviceService) {}
   //@param $event
   segmentChanged($event){
     console.log($event.detail.value);
@@ -101,5 +102,8 @@ cambio(){
   document.body.classList.toggle('dark');
   }
   
+  logout(){
+    this.dbservice.cerrarSesion()
+  }
 
 }

@@ -14,6 +14,8 @@ import { Usuario } from '../classes/usuario';
 export class DbserviceService {
   public database: SQLiteObject;
 
+
+
   tablaNotas: string = "CREATE TABLE IF NOT EXISTS notas(id INTEGER PRIMARY KEY autoincrement, titulo VARCHAR(50) NOT NULL, texto TEXT NOT NULL);";
   listaNotas = new BehaviorSubject([]);
 
@@ -109,6 +111,9 @@ export class DbserviceService {
     }
   }
 
+// FIN CREACION DE TABLAS
+
+
   buscarNotas() {
     //this.presentAlert("a");
     return this.database.executeSql('SELECT * FROM notas', []).then(res => {
@@ -151,6 +156,12 @@ export class DbserviceService {
     });
   }
 
+
+
+  // FIN CREACION FUNCIONES DE BUSCAR
+
+
+
   fetchNotas(): Observable<Notas[]> {
   return this.listaNotas.asObservable();
   }
@@ -166,6 +177,10 @@ export class DbserviceService {
   });
   toast.present();
   }
+
+
+
+  // FUNCIONES DEL LOGIN
 
   validarUsuario(nombre){
     return this.database.executeSql('SELECT COUNT(nombre) as CANTIDAD FROM usuarios WHERE nombre = ?', [nombre]).then((data)=>{
@@ -185,19 +200,11 @@ export class DbserviceService {
     })
   }
 
+  cerrarSesion(){
+      localStorage.removeItem('ingresado');
+      this.router.navigate(['login']);
+  }
 
-  //funcion cuando el usuario cierre sesion
-  //cerrarSesion(nombre,contrasena){
-    //return this.database.executeSql('SELECT nombre , contrasena FROM usuario WHERE nombre = ? and contrasena = ?',[nombre,contrasena]).then((data)=>{
-      //if(data.rows.item(0)){
-        //return false
-        //this.router.navigate(['login']);
-        //alert('Has cerrado sesion');
-      //}
-    //})
-  //}
-
-  //guard para autenticar usuarios
 
 
 }
