@@ -198,16 +198,6 @@ export class DbserviceService {
   //}
 
   //guard para autenticar usuarios
-  isAuthenticated(){
-    //insertar logica de filtro de permisos
-    alert('Has ingresado sin credenciales');
-    return true;
-    //sii el data rows arroja 1 entonces permite el ingreso a la pagina
-    //if//(data.rows.item(1)){//
-      //return true
-      //this.router.navigate(['profile']);
-      //return false
-      //}//
-  }
+
 
 }

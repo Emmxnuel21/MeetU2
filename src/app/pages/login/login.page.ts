@@ -49,6 +49,7 @@ export class LoginPage implements OnInit {
         }else {
           if(usuario.Nombre == this.login.Nombre && usuario.Password == this.login.Password){
             console.log('Ingresado');
+            localStorage.setItem('ingresado','true');
             this.router.navigate(['/profile']);
           }else{
             this.dbservice.presentToast("Usuario No registrado");

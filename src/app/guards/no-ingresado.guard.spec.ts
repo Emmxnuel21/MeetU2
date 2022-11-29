@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthActivateGuard } from './auth-desactivate.guard';
+import { NoIngresadoGuard } from './no-ingresado.guard';
 
-describe('AuthActivateGuard', () => {
-  let guard: AuthActivateGuard;
+describe('NoIngresadoGuard', () => {
+  let guard: NoIngresadoGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(AuthActivateGuard);
+    guard = TestBed.inject(NoIngresadoGuard);
   });
 
   it('should be created', () => {

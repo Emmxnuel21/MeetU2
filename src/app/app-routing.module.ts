@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { IngresadoGuard } from './guards/ingresado.guard';
+import { NoIngresadoGuard } from './guards/no-ingresado.guard';
 import { DbserviceService } from './services/dbservice.service';
-import { AuthGuard } from './guards/auth.guard';
+
 
 const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    canActivate: [AuthGuard]
+    canActivate: [IngresadoGuard]
   },
   {
     path: '',
@@ -17,35 +19,36 @@ const routes: Routes = [
   {
     path: 'calendar',
     loadChildren: () => import('./pages/calendar/calendar.module').then( m => m.CalendarPageModule),
-    canActivate: [AuthGuard]
+    canActivate: [IngresadoGuard]
   },
   {
     path: 'chat',
     loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule),
-    canActivate: [AuthGuard]
+    canActivate: [IngresadoGuard]
   },
   {
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
-    canActivate: [AuthGuard]
+    canActivate: [IngresadoGuard]
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    canActivate: [NoIngresadoGuard]
   },
   {
     path: 'e404',
-    loadChildren: () => import('./pages/e404/e404.module').then( m => m.E404PageModule)
+    loadChildren: () => import('./pages/e404/e404.module').then( m => m.E404PageModule),
   },
   {
     path: 'agregar',
     loadChildren: () => import('./pages/agregar/agregar.module').then( m => m.AgregarPageModule),
-    canActivate: [AuthGuard]
+    canActivate: [IngresadoGuard]
   },
   {
     path: 'modificar',
     loadChildren: () => import('./pages/modificar/modificar.module').then( m => m.ModificarPageModule),
-    canActivate: [AuthGuard]
+    canActivate: [IngresadoGuard]
   },
   {
     path: '**',
