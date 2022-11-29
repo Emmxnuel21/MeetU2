@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title align="center">MeetU</ion-title>
+    <ion-title id="prueba1" align="center">MeetU</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -27,7 +27,7 @@
       </ion-list>
 
       <div class="ion-text-center fade-in">
-        <ion-button class="green-button" (click)="ingresar()">
+        <ion-button class="green-button" id="ir" (click)="ingresar()">
           Ingresar
         </ion-button>
       </div>
@@ -35,7 +35,7 @@
 
     <div class="sign-up-container gradient-2" [ngClass]="{'active': signupView}">
 
-      <div class="toggle-text ion-text-center" tappable (click)="toggleSignUpView()">
+      <div class="toggle-text ion-text-center" id="pruebaregistro" tappable (click)="toggleSignUpView()">
 
         <span *ngIf="!signupView" [ngClass]="{'fade-in': !signupView, 'fade-out': signupView}">Registrarse</span>
         <span *ngIf="signupView" [ngClass]="{'fade-in': signupView, 'fade-out': !signupView}">Ingresa tus datos</span>
@@ -48,18 +48,18 @@
       <ion-list lines="none" class="form" [ngClass]="{'fade-in': signupView, 'fade-out': !signupView}">
         <ion-item>
           <ion-label>Usuario</ion-label>
-          <ion-input class="ion-text-right"[(ngModel)]="login.Usuario"></ion-input>
+          <ion-input id="usu" class="ion-text-right"[(ngModel)]="login.Usuario"></ion-input>
           <ion-icon slot="end" name="person"></ion-icon>
         </ion-item>
         <ion-item>
           <ion-label>Contraseña</ion-label>
-          <ion-input type="password" class="ion-text-right"[(ngModel)]="login.Password"></ion-input>
+          <ion-input id="pass" type="password" class="ion-text-right"[(ngModel)]="login.Password"></ion-input>
           <ion-icon slot="end" name="key-outline"></ion-icon>
         </ion-item>
       </ion-list>
       
       <div class="ion-text-center" [ngClass]="{'fade-in': signupView, 'fade-out': !signupView}">
-        <ion-button class="gray-button" (click)="registro()">
+        <ion-button class="gray-button" id="save" (click)="registro()">
           Registrar
         </ion-button>
       </div>
