@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
 import { ContactosComponent } from './contactos/contactos.component';
 import { ReunionesComponent } from './reuniones/reuniones.component';
-import { AuthGuard } from '../guards/auth.guard';
+
 
 const routes: Routes = [
   {
@@ -13,12 +13,12 @@ const routes: Routes = [
   {
     path: 'Contactos',
     component: ContactosComponent,
-    canActivate: [AuthGuard]
+
   },
   {
     path: 'Reuniones',
     component: ReunionesComponent,
-    canActivate: [AuthGuard]
+
   }
 ];
 

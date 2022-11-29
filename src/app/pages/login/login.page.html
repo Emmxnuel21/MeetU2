@@ -31,18 +31,6 @@
           Ingresar
         </ion-button>
       </div>
-      <div class="ion-text-center fade-in">
-        <ion-button class="green-button" (click)="mostrarFormulario()">
-          registro
-        </ion-button>
-      </div>
-
-      <div class="ion-text-center fade-in">
-        <ion-button class="green-button" (click)="ir()">
-          ir
-        </ion-button>
-      </div>
-
     </div>
 
     <div class="sign-up-container gradient-2" [ngClass]="{'active': signupView}">
@@ -71,7 +59,7 @@
       </ion-list>
       
       <div class="ion-text-center" [ngClass]="{'fade-in': signupView, 'fade-out': !signupView}">
-        <ion-button class="gray-button" (click)="casa()">
+        <ion-button class="gray-button" (click)="registro()">
           Registrar
         </ion-button>
       </div>
