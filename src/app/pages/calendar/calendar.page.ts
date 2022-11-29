@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController} from '@ionic/angular';
+import { DbserviceService } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-calendar',
@@ -9,7 +10,7 @@ import { MenuController} from '@ionic/angular';
 export class CalendarPage implements OnInit {
   darkMode: boolean = false ;
 
-  constructor(private menu: MenuController, private menuCtrl: MenuController) { }
+  constructor(private dbservice: DbserviceService,private menu: MenuController, private menuCtrl: MenuController) { }
 
   ngOnInit() {
   }
@@ -36,6 +37,10 @@ export class CalendarPage implements OnInit {
     //const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
     this.darkMode = this.darkMode
     document.body.classList.toggle('dark');
+    }
+
+    logout(){
+      this.dbservice.cerrarSesion()
     }
 
 }

@@ -21,51 +21,17 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-
-
-  async mostrarFormulario() {
-    const alert = await this.alertcontroller.create({
-      cssClass: 'my-custom-class',
-      header: 'Nuevo Usuario!',
-      inputs: [
-        {
-          name: 'nombre',
-          type: 'text',
-          placeholder: 'Nombre Usuario',
-        },
-        {
-          name: 'contrasena',
-          type: 'password',
-          placeholder: 'Contraseña Usuario',
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          },
-        },
-        {
-          text: 'Registrar',
-          handler: (data) => {
-            this.registro(data.nombre,data.contrasena)
-          },
-        },
-      ],
-    });
-
-    await alert.present();
+  toggleSignUpView () {
+    this.signupView = !this.signupView
   }
+
   
-  registro(nombre,contrasena){
-    this.dbservice.validarUsuario(nombre).then((data) => {
+  registro(){
+    this.dbservice.validarUsuario(this.login.Usuario).then((data) => {
       if(!data){
-        this.dbservice.addUsuario(nombre,contrasena);
+        this.dbservice.addUsuario(this.login.Usuario,this.login.Password);
         this.dbservice.presentToast("Usuario Agregado");
-        console.log(data)
+        localStorage.setItem('login',JSON.stringify(this.login));
       }else {
         this.dbservice.presentToast("Usuario No Agregado");
       }
@@ -73,10 +39,22 @@ export class LoginPage implements OnInit {
   }
 
   ingresar(){
+    var usuario = JSON.parse(localStorage.getItem('login'));
     // Se valida que el usuario ingreso todos los datos
     if(this.validateModel(this.login)){
       // Se obtiene si existe alguna data de sesión
-      this.dbservice.login(this.login);
+      this.dbservice.iniciarSesion(this.login.Usuario,this.login.Password).then((data) => {
+        if(!data){
+          this.dbservice.presentToast("Usuario No registrado");
+        }else {
+          if(usuario.Nombre == this.login.Nombre && usuario.Password == this.login.Password){
+            localStorage.setItem('ingresado','true');
+            this.router.navigate(['/profile']);
+          }else{
+            this.dbservice.presentToast("Usuario No registrado");
+          }        
+        }
+      }) 
     }
     else{
       this.dbservice.presentToast("Falta: "+this.field);
@@ -97,7 +75,4 @@ export class LoginPage implements OnInit {
   return true;
 }
 
-  ir(){
-    this.router.navigate(['/profile']);
-  }
 }

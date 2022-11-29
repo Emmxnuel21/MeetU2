@@ -14,10 +14,12 @@ import { Usuario } from '../classes/usuario';
 export class DbserviceService {
   public database: SQLiteObject;
 
+
+
   tablaNotas: string = "CREATE TABLE IF NOT EXISTS notas(id INTEGER PRIMARY KEY autoincrement, titulo VARCHAR(50) NOT NULL, texto TEXT NOT NULL);";
   listaNotas = new BehaviorSubject([]);
 
-  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuario(id INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(50) NOT NULL, contrasena VARCHAR(50) NOT NULL;";
+  tablaUsuario: string = "CREATE TABLE IF NOT EXISTS usuarios(id INTEGER PRIMARY KEY autoincrement, nombre VARCHAR(50) NOT NULL, contrasena VARCHAR(50) NOT NULL);";
   listaUsuario = new BehaviorSubject([]);
 
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -54,7 +56,7 @@ export class DbserviceService {
 
   addUsuario(nombre,contrasena){
     let data=[nombre,contrasena];
-    return this.database.executeSql('INSERT INTO usuario(nombre,contrasena,active) VALUES(?,?,?)',data)
+    return this.database.executeSql('INSERT INTO usuarios(nombre,contrasena) VALUES(?,?)',data)
     .then(res =>{
       this.buscarUsuario();
     })
@@ -63,7 +65,7 @@ export class DbserviceService {
 
   updateUsuario(id, nombre, contrasena){
     let data = [nombre, contrasena, id];
-    return this.database.executeSql('UPDATE usuario SET nombre = ?, contrasena = ? WHERE id = ?', data)
+    return this.database.executeSql('UPDATE usuarios SET nombre = ?, contrasena = ? WHERE id = ?', data)
     .then(data2 =>{
       this.buscarUsuario();
     })
@@ -71,7 +73,7 @@ export class DbserviceService {
   }
 
   deleteUsuario(id){
-    return this.database.executeSql('DELETE FROM usuario WHERE id = ?', [id])
+    return this.database.executeSql('DELETE FROM usuarios WHERE id = ?', [id])
     .then(a =>{
       this.buscarUsuario();
     })
@@ -109,6 +111,9 @@ export class DbserviceService {
     }
   }
 
+// FIN CREACION DE TABLAS
+
+
   buscarNotas() {
     //this.presentAlert("a");
     return this.database.executeSql('SELECT * FROM notas', []).then(res => {
@@ -132,7 +137,7 @@ export class DbserviceService {
 
   buscarUsuario() {
     //this.presentAlert("a");
-    return this.database.executeSql('SELECT * FROM usuario', []).then(res => {
+    return this.database.executeSql('SELECT * FROM usuarios', []).then(res => {
       let items: Usuario[] = [];
       //this.presentAlert("b");
       if (res.rows.length > 0) {
@@ -151,6 +156,12 @@ export class DbserviceService {
     });
   }
 
+
+
+  // FIN CREACION FUNCIONES DE BUSCAR
+
+
+
   fetchNotas(): Observable<Notas[]> {
   return this.listaNotas.asObservable();
   }
@@ -167,8 +178,12 @@ export class DbserviceService {
   toast.present();
   }
 
+
+
+  // FUNCIONES DEL LOGIN
+
   validarUsuario(nombre){
-    return this.database.executeSql('SELECT COUNT(nombre) as CANTIDAD FROM usuario WHERE nombre = ?', [nombre]).then((data)=>{
+    return this.database.executeSql('SELECT COUNT(nombre) as CANTIDAD FROM usuarios WHERE nombre = ?', [nombre]).then((data)=>{
       if(data.rows.item(0).CANTIDAD === 0){
         return false;
       }
@@ -176,63 +191,20 @@ export class DbserviceService {
     })
   }
 
-  validarSesion(sesion:any){
-    return this.database.executeSql('SELECT nombre FROM usuario WHERE nombre = ? and contrasena = ?',[sesion.nombre,sesion.contrasena])
-  }
-  
-  updateSesionData(sesion:any){
-    return this.database.executeSql('UPDATE usuario SET active = ? WHERE nombre = ? ', [sesion.active,sesion.nombre]);
-  } 
-
-  getSesionData(sesion:any){
-    return this.database.executeSql('SELECT nombre, active FROM usuario WHERE nombre = ? AND contrasena = ?',[sesion.nombre,
-      sesion.contrasena])
-  }
-
-  login(login:any){
-    // Se obtiene si existe alguna data de sesión
-    this.getSesionData(login)
-    .then((data)=>{ // Si se ejecuto correctamente la consulta
-      if(data===undefined){ // Si es undefined es por que no retorno firmas
-        this.presentToast("Credenciales Incorrectas");
-      }else{ // Si no es undefined es por que el usuario y la password coincidieron con algun registro
-        data.active=1; // se cambia el active a 1
-        this.updateSesionData(data) // Y se actualiza la sesión
-        .then((response)=>{ // Si la sentencia se ejecuto correctamente sin errores
-          this.router.navigate(['/profile']); // Y se navega hasta el perfil
-          
-        });
+  iniciarSesion(nombre,contrasena){
+    return this.database.executeSql('SELECT COUNT(id) as CANTIDAD FROM usuarios WHERE nombre = ? and contrasena = ?',[nombre,contrasena]).then((data)=>{
+      if(data.rows.item(0).CANTIDAD === 0){
+        return false;
       }
+      return true;
     })
-    .catch((error)=>{
-      console.log(error);
-    });
+  }
+
+  cerrarSesion(){
+      localStorage.removeItem('ingresado');
+      this.router.navigate(['login']);
   }
 
 
-
-  //funcion cuando el usuario cierre sesion
-  //cerrarSesion(nombre,contrasena){
-    //return this.database.executeSql('SELECT nombre , contrasena FROM usuario WHERE nombre = ? and contrasena = ?',[nombre,contrasena]).then((data)=>{
-      //if(data.rows.item(0)){
-        //return false
-        //this.router.navigate(['login']);
-        //alert('Has cerrado sesion');
-      //}
-    //})
-  //}
-
-  //guard para autenticar usuarios
-  isAuthenticated(){
-    //insertar logica de filtro de permisos
-    alert('Has ingresado sin credenciales');
-    return true;
-    //sii el data rows arroja 1 entonces permite el ingreso a la pagina
-    //if//(data.rows.item(1)){//
-      //return true
-      //this.router.navigate(['profile']);
-      //return false
-    //}//
-  }
 
 }
