@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
       if(!data){
         this.dbservice.addUsuario(this.login.Usuario,this.login.Password);
         this.dbservice.presentToast("Usuario Agregado");
-        console.log(data)
+        localStorage.setItem('login',JSON.stringify(this.login));
       }else {
         this.dbservice.presentToast("Usuario No Agregado");
       }
@@ -39,6 +39,7 @@ export class LoginPage implements OnInit {
   }
 
   ingresar(){
+    var usuario = JSON.parse(localStorage.getItem('login'));
     // Se valida que el usuario ingreso todos los datos
     if(this.validateModel(this.login)){
       // Se obtiene si existe alguna data de sesión
@@ -46,7 +47,12 @@ export class LoginPage implements OnInit {
         if(!data){
           this.dbservice.presentToast("Usuario No registrado");
         }else {
-          this.router.navigate(['/profile']);
+          if(usuario.Nombre == this.login.Nombre && usuario.Password == this.login.Password){
+            console.log('Ingresado');
+            this.router.navigate(['/profile']);
+          }else{
+            this.dbservice.presentToast("Usuario No registrado");
+          }        
         }
       }) 
     }
