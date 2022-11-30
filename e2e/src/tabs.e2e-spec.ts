@@ -16,6 +16,9 @@ describe('PRIMERA PRUEBA COMPROBACION PAGE LOGIN',()=>{
 ///////////////////////////FIN PRUEBA 1///////////////////////////////////////////
 
 describe('SEGUNDA PRUEBA REGISTRO',()=>{
+    beforeEach(()=>{
+        browser.get("/");
+    });
     it("SE COMPRUEBA QUE ACCEDA A REGISTRO Y REGISTRE UN USUARIO",()=>{
         browser.driver.sleep(1000);
         expect(element(by.id("pruebaregistro")).click());
