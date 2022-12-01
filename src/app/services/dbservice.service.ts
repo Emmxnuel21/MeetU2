@@ -94,7 +94,6 @@ export class DbserviceService {
       }).then((db: SQLiteObject) => {
         this.database = db;
         this.presentToast("BD Creada");
-        //llamamos a la creación de tablas
         this.crearTablas();
       }).catch(e => this.presentToast(e));
     })
@@ -115,14 +114,10 @@ export class DbserviceService {
 
 
   buscarNotas() {
-    //this.presentAlert("a");
     return this.database.executeSql('SELECT * FROM notas', []).then(res => {
       let items: Notas[] = [];
-      //this.presentAlert("b");
       if (res.rows.length > 0) {
-        //this.presentAlert("c");
         for (var i = 0; i < res.rows.length; i++) {
-          //this.presentAlert("d");
           items.push({
             id: res.rows.item(i).id,
             titulo: res.rows.item(i).titulo,
@@ -130,20 +125,15 @@ export class DbserviceService {
           });
         }
       }
-      //this.presentAlert("d");
       this.listaNotas.next(items);
     });
   }
 
   buscarUsuario() {
-    //this.presentAlert("a");
     return this.database.executeSql('SELECT * FROM usuarios', []).then(res => {
       let items: Usuario[] = [];
-      //this.presentAlert("b");
       if (res.rows.length > 0) {
-        //this.presentAlert("c");
         for (var i = 0; i < res.rows.length; i++) {
-          //this.presentAlert("d");
           items.push({
             id: res.rows.item(i).id,
             nombre: res.rows.item(i).nombre,
@@ -151,7 +141,6 @@ export class DbserviceService {
           });
         }
       }
-      //this.presentAlert("d");
       this.listaUsuario.next(items);
     });
   }
