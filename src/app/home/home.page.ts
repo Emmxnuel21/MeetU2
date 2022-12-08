@@ -48,27 +48,6 @@ export class HomePage implements OnInit{
     console.log('valor del control: ' + valor);
   }
 
-  agregar() {
-  }
-
-  editar(item) {
-    this.servicioBD.presentToast("Hola");
-    let navigationextras: NavigationExtras = {
-      state : {
-        idEnviado : item.id,
-        tituloEnviado : item.titulo,
-        textoEnviado : item.texto
-      }
-    }
-    this.servicioBD.presentToast("Aqui");
-    this.router.navigate(['/modificar'],navigationextras);
-  }
-
-  eliminar(item) {
-    this.servicioBD.deleteNota(item.id);
-    this.servicioBD.presentToast("Nota Eliminada");
-  }
-
   ngAfterViewInit(){
     this.geolocationNative();
   }
@@ -96,11 +75,6 @@ toggleMenu(){
   this.menuCtrl.toggle();
 }
 
-cambio(){
-  //const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  this.darkMode = this.darkMode
-  document.body.classList.toggle('dark');
-  }
   
   logout(){
     this.dbservice.cerrarSesion()

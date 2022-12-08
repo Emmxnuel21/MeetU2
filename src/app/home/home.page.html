@@ -27,51 +27,33 @@
   </ion-content>
 </ion-menu>
 <ion-router-outlet id="main"></ion-router-outlet>
-<ion-div>
-  <ion-segment value="Contactos" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="Contactos" class="color-btn"><ion-icon name="accessibility-outline">
-    </ion-icon><p>&nbsp;Contactos</p></ion-segment-button>
 
-    <ion-segment-button value="Reuniones" class="color-btn"><ion-icon name="alert-outline">
-    </ion-icon><p>&nbsp;Reuniones</p></ion-segment-button>
-  </ion-segment>
-</ion-div>
 <ion-content>
-  <h1>Notas rapidas</h1>
-  <ion-searchbar (ionInput)="getItem($event)"></ion-searchbar>
-  <ion-list>
-    <ion-item-sliding *ngFor="let item of notas">
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="assets/images/meet.png">
-        </ion-avatar>
+  <div class="tabs">
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="clases">
+          <ion-icon name="pencil-outline"></ion-icon>
+          <ion-label>Clases</ion-label>
+        </ion-tab-button>
+         
+        <ion-tab-button tab="calendario">
+          <ion-icon name="calendar"></ion-icon>
+          <ion-label>Calendario</ion-label>
+        </ion-tab-button>
 
-        <ion-label>
-          <h2>{{ item.titulo }}</h2>
-          <!-- word-wrap para los cortes entre palabras  white-space para que aparezca todo el texto en varias lineas y no se corte-->
-          <p style="word-wrap: break-word; white-space: normal;">{{ item.texto }}</p>
-        </ion-label>
-
-      </ion-item>
-      <!-- El error era que el evento click se lo puse al icono y no al boton completo -->
-      <ion-item-options side="end">
-        <ion-item-option (click)="editar(item)">
-          <ion-icon name="create" ></ion-icon> Editar
-        </ion-item-option>
-
-        <ion-item-option color="danger" (click)="eliminar(item)">
-          <ion-icon name="trash"></ion-icon> Eliminar
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-
-  </ion-list>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/agregar']">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+        <ion-tab-button tab="notas">
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-label>Notas</ion-label>
+        </ion-tab-button>
+    
+        <ion-tab-button tab="pago">
+          <ion-icon name="wallet-outline"></ion-icon>
+          <ion-label>Pagos</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </div>
 </ion-content>
 
 
