@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { DbserviceService } from 'src/app/services/dbservice.service';
-
+import { MenuController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pago',
@@ -10,32 +10,17 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
 })
 export class PagoPage implements OnInit {
 
-  constructor(private servicioBD: DbserviceService, public router: Router) { }
+  constructor(private menuCtrl: MenuController, private toastController: ToastController,private alertcontroller: AlertController) { }
 
   ngOnInit() {
   }
-
-
-  agregar() {
+  async presentToast(position:'top') {
+    const toast = await this.toastController.create({
+      message: '¡Pago realizado!',
+      duration: 1500,
+      position: position
+    });
+    await toast.present();
   }
-
-  editar(item) {
-    this.servicioBD.presentToast("Hola");
-    let navigationextras: NavigationExtras = {
-      state : {
-        idEnviado : item.id,
-        tituloEnviado : item.titulo,
-        textoEnviado : item.texto
-      }
-    }
-    this.servicioBD.presentToast("Aqui");
-    this.router.navigate(['/modificar'],navigationextras);
-  }
-
-  eliminar(item) {
-    this.servicioBD.deleteNota(item.id);
-    this.servicioBD.presentToast("Nota Eliminada");
-  }
-
-
+  
 }
