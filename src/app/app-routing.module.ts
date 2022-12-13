@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { IngresadoGuard } from './guards/ingresado.guard';
 import { NoIngresadoGuard } from './guards/no-ingresado.guard';
-import { DbserviceService } from './services/dbservice.service';
+
 
 
 const routes: Routes = [
@@ -51,10 +51,17 @@ const routes: Routes = [
     canActivate: [IngresadoGuard]
   },
   {
+    path: 'userchat/:id',
+    loadChildren: () => import('./pages/userchat/userchat.module').then( m => m.UserchatPageModule),
+    canActivate: [IngresadoGuard]
+  },
+  {
     path: '**',
     redirectTo: 'e404',
     pathMatch: 'full'
   }
+  
+
 
 ];
 
