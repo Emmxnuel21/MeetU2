@@ -1,24 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IngresadoGuard } from '../guards/ingresado.guard';
 import { HomePage } from './home.page';
-import { ContactosComponent } from './contactos/contactos.component';
-import { ReunionesComponent } from './reuniones/reuniones.component';
+
 
 
 const routes: Routes = [
   {
     path: '',
     component: HomePage,
-  },
-  {
-    path: 'Contactos',
-    component: ContactosComponent,
-
-  },
-  {
-    path: 'Reuniones',
-    component: ReunionesComponent,
-
+    children:[
+      {
+        path: 'contactos',
+        loadChildren: () => import('./contactos/contactos.module').then( m => m.ContactosPageModule),
+        canActivate: [IngresadoGuard]
+      },
+      {
+        path: 'reuniones',
+        loadChildren: () => import('./reuniones/reuniones.module').then( m => m.ReunionesPageModule),
+        canActivate: [IngresadoGuard]
+      }
+    ]
   }
 ];
 

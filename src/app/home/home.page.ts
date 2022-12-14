@@ -11,62 +11,11 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
-  
-  darkMode: boolean = false;
-
-  notas: any = [
-    {
-      titulo: "Titulo de la Nota",
-      texto: "Texto de la nota que quiero que salga en el cuerpo del item"
-    }
-  ]
-
+  usuario = JSON.parse(localStorage.getItem('usuarios'));
   constructor(private dbservice:DbserviceService ,private router: Router, private menu: MenuController, private menuCtrl: MenuController, private geolocation: Geolocation, private servicioBD: DbserviceService) {}
-  //@param $event
-  segmentChanged($event){
-    console.log($event.detail.value);
-    let direction=$event.detail.value
-    this.router.navigate(['home/'+direction])
-  }
+
 
   ngOnInit(){
-    //this.servicioBD.presentAlert("1");
-    this.servicioBD.dbState().subscribe((res) =>{
-      //this.servicioBD.presentAlert("2");
-      if(res){
-        //this.servicioBD.presentAlert("3");
-        this.servicioBD.fetchNotas().subscribe(item =>{
-          this.notas = item;
-        })
-      }
-      //this.servicioBD.presentAlert("4");
-    });
-  }
-
-  getItem($event) {
-    const valor = $event.target.value; 
-    console.log('valor del control: ' + valor);
-  }
-
-  agregar() {
-  }
-
-  editar(item) {
-    this.servicioBD.presentToast("Hola");
-    let navigationextras: NavigationExtras = {
-      state : {
-        idEnviado : item.id,
-        tituloEnviado : item.titulo,
-        textoEnviado : item.texto
-      }
-    }
-    this.servicioBD.presentToast("Aqui");
-    this.router.navigate(['/modificar'],navigationextras);
-  }
-
-  eliminar(item) {
-    this.servicioBD.deleteNota(item.id);
-    this.servicioBD.presentToast("Nota Eliminada");
   }
 
   ngAfterViewInit(){
@@ -96,11 +45,6 @@ toggleMenu(){
   this.menuCtrl.toggle();
 }
 
-cambio(){
-  //const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  this.darkMode = this.darkMode
-  document.body.classList.toggle('dark');
-  }
   
   logout(){
     this.dbservice.cerrarSesion()

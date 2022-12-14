@@ -11,7 +11,8 @@ import { LoadingController } from '@ionic/angular';
 })
 export class ProfilePage implements OnInit {
 
-  user_ini = [];
+
+  usuario = JSON.parse(localStorage.getItem('usuarios'));
 
   constructor(private dbservice: DbserviceService,private activeroute: ActivatedRoute, private router: Router, private menu: MenuController, private menuCtrl: MenuController, private loading: LoadingController) {}
 
@@ -39,5 +40,5 @@ export class ProfilePage implements OnInit {
       this.dbservice.cerrarSesion()
     }
 
-    a
+    
 }

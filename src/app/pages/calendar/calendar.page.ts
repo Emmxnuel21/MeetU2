@@ -8,8 +8,9 @@ import { DbserviceService } from 'src/app/services/dbservice.service';
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage implements OnInit {
-  darkMode: boolean = false ;
 
+  usuario = JSON.parse(localStorage.getItem('usuarios'));
+  
   constructor(private dbservice: DbserviceService,private menu: MenuController, private menuCtrl: MenuController) { }
 
   ngOnInit() {
@@ -33,11 +34,7 @@ export class CalendarPage implements OnInit {
     this.menuCtrl.toggle();
   }
 
-  cambio(){
-    //const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    this.darkMode = this.darkMode
-    document.body.classList.toggle('dark');
-    }
+
 
     logout(){
       this.dbservice.cerrarSesion()

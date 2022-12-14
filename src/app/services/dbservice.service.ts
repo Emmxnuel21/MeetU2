@@ -5,6 +5,7 @@ import { Platform, ToastController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Notas } from '../classes/notas';
 import { Usuario } from '../classes/usuario';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -23,7 +24,7 @@ export class DbserviceService {
   listaUsuario = new BehaviorSubject([]);
 
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  constructor(private router: Router, private sqlite: SQLite, private platform: Platform, public toastController: ToastController) {
+  constructor(private router: Router, private sqlite: SQLite, private platform: Platform, public toastController: ToastController, private http: HttpClient) {
     this.crearBD();
    }
 
@@ -194,6 +195,10 @@ export class DbserviceService {
       this.router.navigate(['login']);
   }
 
+  extraerNombre(){
+    localStorage.getItem('usuarios');
+  }
 
-
+  
+  
 }
