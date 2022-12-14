@@ -10,7 +10,6 @@ import { HttpClient } from '@angular/common/http';
 export class ChatPage implements OnInit {
   
   characters = [];
-  usuario = JSON.parse(localStorage.getItem('usuarios'));
 
   constructor(private http: HttpClient ,private dbservice: DbserviceService,private menu: MenuController, private menuCtrl: MenuController) { }
 
@@ -20,27 +19,6 @@ export class ChatPage implements OnInit {
       this.characters = res.results;
     })
   }
-
-  openFirst() {
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
-  }
-  
-  openEnd() {
-    this.menu.open('end');
-  }
-  
-  openCustom() {
-    this.menu.enable(true, 'custom');
-    this.menu.open('custom');
-  }
-  toggleMenu(){
-    this.menuCtrl.toggle();
-  }
-  
-    logout(){
-      this.dbservice.cerrarSesion()
-    }
 
   
 }

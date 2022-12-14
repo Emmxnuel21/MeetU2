@@ -11,34 +11,11 @@ import { LoadingController } from '@ionic/angular';
 })
 export class ProfilePage implements OnInit {
 
-
   usuario = JSON.parse(localStorage.getItem('usuarios'));
 
   constructor(private dbservice: DbserviceService,private activeroute: ActivatedRoute, private router: Router, private menu: MenuController, private menuCtrl: MenuController, private loading: LoadingController) {}
 
   ngOnInit() {
   }
-
-  openFirst() {
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
-  }
-
-  openEnd() {
-    this.menu.open('end');
-  }
-
-  openCustom() {
-    this.menu.enable(true, 'custom');
-    this.menu.open('custom');
-  }
-  toggleMenu(){
-    this.menuCtrl.toggle();
-  }
-
-    logout(){
-      this.dbservice.cerrarSesion()
-    }
-
     
 }

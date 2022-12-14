@@ -19,9 +19,21 @@ const routes: Routes = [
         path: 'reuniones',
         loadChildren: () => import('./reuniones/reuniones.module').then( m => m.ReunionesPageModule),
         canActivate: [IngresadoGuard]
+      },
+      {
+        path: 'inicio',
+        loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule),
+        canActivate: [IngresadoGuard]
+      },
+      {
+        path: '',
+        redirectTo: '/home/inicio',
+        pathMatch: 'full'
       }
     ]
-  }
+  },
+  
+
 ];
 
 @NgModule({
